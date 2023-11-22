@@ -1,3 +1,5 @@
+import { createCode } from './utils.js';
+
 /**
  * Хранилище состояния приложения
  */
@@ -44,7 +46,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: createCode(this.state.list), title: 'Новая запись'}]
     })
   };
 
@@ -67,8 +69,13 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+        item.count = item.count ?? 0;
         if (item.code === code) {
           item.selected = !item.selected;
+          item.count += 1;
+        }
+        else {
+          item.selected = false
         }
         return item;
       })

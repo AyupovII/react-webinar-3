@@ -26,3 +26,16 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Функция создания уникального кода
+ * @param list {Array} Название HTML тега
+ * @returns {Number}
+ */
+export function createCode(list) {
+  let randomNum = 0;
+  do{
+    randomNum = Math.floor(Math.random() * 1000);
+  } while(list.some((item) => item.code === randomNum))
+  return randomNum;
+}
