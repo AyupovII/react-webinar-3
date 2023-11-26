@@ -34,8 +34,22 @@ export function createElement(name, props = {}, ...children) {
  */
 export function createCode(list) {
   let randomNum = 0;
-  do{
+  do {
     randomNum = Math.floor(Math.random() * 1000);
-  } while(list.some((item) => item.code === randomNum))
+  } while (list.some((item) => item.code === randomNum))
   return randomNum;
+}
+
+/**
+ * Функция создания уникального кода
+ * если кончается на 2,3,4 - пишем "раза" (исключения 12,13,14)
+ * @param counter {Number} Название HTML тега
+ * @returns {Number}
+ */
+export function clickСounter(counter) {
+  const counterToString = String(counter);
+  if (counterToString.endsWith("2") && !counterToString.endsWith("12") || counterToString.endsWith("3") && !counterToString.endsWith("13") || counterToString.endsWith("4") && !counterToString.endsWith("14")) {
+    return ` | Выделяли ${counter} разa`
+  }
+  return ` | Выделяли ${counter} раз`
 }
