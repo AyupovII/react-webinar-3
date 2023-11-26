@@ -44,7 +44,7 @@ export function createCode(list) {
  * Функция создания уникального кода
  * если кончается на 2,3,4 - пишем "раза" (исключения 12,13,14)
  * @param counter {Number} Название HTML тега
- * @returns {Number}
+ * @returns {String}
  */
 export function clickСounter(counter) {
   const counterToString = String(counter);
