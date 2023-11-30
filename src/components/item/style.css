@@ -18,6 +18,15 @@
   padding: 20px 10px;
 }
 
+.Item-price, .Item-count{
+  width: 200px;
+  text-align: end;
+  align-self: center;
+  font-size: 18px;
+  padding-right: 20px;
+}
+
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;

@@ -1,7 +1,8 @@
 .List {
-
+  /* display: table;
+	border-collapse: collapse; */
 }
 
 .List-item {
-  border-bottom: 1px dashed #ccc;
+  border: 1px dashed #ccc;
 }
