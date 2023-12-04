@@ -16,8 +16,9 @@ function App({ store }) {
   const list = store.getState().list;
   const cardList = store.getState().shoppingCart;
 
-  const countCard = store.getState().shoppingCart.length ?? 0;
-  const totalSumm = store.getTotalSumm();
+  const countCard = store.getState().countCard ?? 0;
+  console.log(store.getState());
+  const totalSumm = store.getTotalSumm().toLocaleString('ru-RU');
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -41,11 +42,18 @@ function App({ store }) {
       />
       <List
         list={list}
-        onAddCard={callbacks.onAddItem} />
+        onAddCard={callbacks.onAddItem}
+      />
       <Modal
+        title={"Корзина"}
         active={openModal}
         setActive={setOpenModal}>
-        <Basket cardList={cardList} onDeleteCard={callbacks.onDeleteItem} totalSumm={totalSumm} countCard={countCard}/>
+        <Basket
+          cardList={cardList}
+          onDeleteCard={callbacks.onDeleteItem}
+          totalSumm={totalSumm}
+          countCard={countCard}
+        />
       </Modal>
     </PageLayout>
   );

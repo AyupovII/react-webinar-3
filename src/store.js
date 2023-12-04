@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -44,28 +44,29 @@ class Store {
    * Добавление новой записи в корзину
    */
   addItem(code) {
-    const currentProduct = this.state.list.find((el)=>el.code===code);
-    const isInBasket = this.state.shoppingCart.find(el=>el.code===code);
-    if (isInBasket){
+    const currentProduct = this.state.list.find((el) => el.code === code);
+    const isInBasket = this.state.shoppingCart.find(el => el.code === code);
+    if (isInBasket) {
       this.setState({
-      ...this.state,
-      shoppingCart: this.state.shoppingCart.map(item => {
-        if (item.code === code) {
-            item.count +=1;
-        }
-        return {...item};
+        ...this.state,
+        shoppingCart: this.state.shoppingCart.map(item => {
+          if (item.code === code) {
+            item.count = item.count + 1;
+          }
+          return { ...item };
+        })
       })
-    })
     }
     else {
       this.setState({
         ...this.state,
-        shoppingCart:[...this.state.shoppingCart, {...currentProduct, count: 1}],
+        shoppingCart: [...this.state.shoppingCart, { ...currentProduct, count: 1 }],
+        countCard: this.state.countCard + 1,
       })
     }
   };
   getTotalSumm() {
-    return this.state.shoppingCart.reduce((acc, curr)=>{ return acc+=curr.price*curr.count}, 0);
+    return this.state.shoppingCart.reduce((acc, curr) => { return acc += curr.price * curr.count }, 0);
   }
 
   /**
@@ -76,7 +77,8 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      shoppingCart: this.state.shoppingCart.filter(item => item.code !== code)
+      shoppingCart: this.state.shoppingCart.filter(item => item.code !== code),
+      countCard: this.state.countCard - 1,
     })
   };
 }

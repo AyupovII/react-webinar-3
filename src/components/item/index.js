@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { plural } from "../../utils";
 import './style.css';
 
 function Item(props) {
@@ -22,7 +21,7 @@ function Item(props) {
       <div className='Item-title'>
         {props.item.title}
       </div>
-      <div className='Item-price'>{`${props.item.price} ₽`}</div>
+      <div className='Item-price'>{`${props.item.price.toLocaleString('ru-RU')} ₽`}</div>
       {!isBasket &&
         <div className='Item-count'>{`${props.item.count} шт`}</div>}
       <div className='Item-actions'>

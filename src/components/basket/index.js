@@ -7,7 +7,10 @@ function Basket({ cardList, onDeleteCard, totalSumm, countCard }) {
   return (
     <div className='Basket'>
       {countCard ? <>
-        <List list={cardList} onDeleteCard={onDeleteCard} />
+        <List
+          list={cardList}
+          onDeleteCard={onDeleteCard}
+        />
         <div className="Basket-total">
           <div>Итого</div>
           <div className="Basket-summ">{`${totalSumm} ₽`}</div>
@@ -20,13 +23,13 @@ function Basket({ cardList, onDeleteCard, totalSumm, countCard }) {
 Basket.propTypes = {
   cardList: PropTypes.array,
   onDeleteCard: PropTypes.func,
-  totalSumm: PropTypes.number,
+  totalSumm: PropTypes.string,
   countCard: PropTypes.number,
 };
 
 Basket.defaultProps = {
   onDeleteCard: () => { },
-  totalSumm: 0,
+  totalSumm: "0",
   countCard: 0,
 }
 
