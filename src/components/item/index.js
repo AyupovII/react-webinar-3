@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
 
@@ -48,11 +48,10 @@ Item.propTypes = {
   }).isRequired,
   onDeleteCard: PropTypes.func,
   onAddCard: PropTypes.func,
-
 };
 
 Item.defaultProps = {
-  onDelete: undefined,
+  onDeleteCard: undefined,
   onAddCard: undefined,
 }
 

@@ -17,7 +17,6 @@ function App({ store }) {
   const cardList = store.getState().shoppingCart;
 
   const countCard = store.getState().countCard ?? 0;
-  console.log(store.getState());
   const totalSumm = store.getTotalSumm().toLocaleString('ru-RU');
 
   const [openModal, setOpenModal] = useState(false);

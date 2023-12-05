@@ -12,7 +12,6 @@ function List({ list, onAddCard, onDeleteCard }) {
             item={item}
             onAddCard={onAddCard}
             onDeleteCard={onDeleteCard}
-
           />
         </div>
       )}
