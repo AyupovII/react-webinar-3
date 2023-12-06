@@ -1,0 +1,16 @@
+.ArticleItem {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 40px;
+  font-size: 18px;
+}
+
+.ArticleItem-price {
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.ArticleItem-button {
+  width: min-content;
+}

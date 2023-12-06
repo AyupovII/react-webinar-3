@@ -33,3 +33,36 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function myRange(start, size, step = 1) {
+  const range = [];
+  for (let i = start; i <= size; i += step) {
+    range.push(i);
+  }
+  return range;
+};
+
+export function paginationRange(totalPage, page, siblings,) {
+  let totalPageNoInArray = 7 + siblings;
+  if (totalPageNoInArray >= totalPage) {
+    return myRange(1, totalPage + 1);
+  }
+  let leftSiblingsIndex = Math.max(page - siblings, 1);
+  let rightSiblingsIndex = Math.min(page + siblings, totalPage);
+  let showLeftDots = leftSiblingsIndex > 2;
+  let showRightDots = rightSiblingsIndex < totalPage - 2;
+
+  if (!showLeftDots && showRightDots) {
+    let leftItemsCount = 3 + 2 * siblings;
+    let leftRange = myRange(1, leftItemsCount + 1);
+    return [...leftRange, " ...", totalPage]
+  }
+  else if (showLeftDots && !showRightDots) {
+    let rightItemsCount = 3 + 2 * siblings;
+    let rightRange = myRange(totalPage - rightItemsCount + 1, totalPage);
+    return [1, "... ", ...rightRange];
+  } else {
+    let middleRange = myRange(leftSiblingsIndex, rightSiblingsIndex);
+    return [1, "... ", ...middleRange, " ...", totalPage]
+  }
+}
