@@ -8,8 +8,6 @@ import useStore from "../../store/use-store";
 
 function ArticleItem({ id, data, onAdd }) {
   const cn = bem('ArticleItem');
-  console.log("1wad", id);
-
 
   return (
     <div className={cn()}>
@@ -33,17 +31,25 @@ function ArticleItem({ id, data, onAdd }) {
   );
 }
 
-// Item.propTypes = {
-//   item: PropTypes.shape({
-//     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-//     title: PropTypes.string,
-//     price: PropTypes.number
-//   }).isRequired,
-//   onAdd: PropTypes.func,
-// };
+ArticleItem.propTypes = {
+  data: PropTypes.shape({
+    description: PropTypes.string,
+    madeIn: PropTypes.shape({
+      title: PropTypes.string,
+      code: PropTypes.string,
+    }),
+    category: PropTypes.shape({
+      title: PropTypes.string,
+    }),
+    edition: PropTypes.number,
+    price: PropTypes.number,
+    onAdd: PropTypes.func,
+  }).isRequired,
+  onAdd: PropTypes.func,
+};
 
-// Item.defaultProps = {
-//   onAdd: () => {},
-// }
+ArticleItem.defaultProps = {
+  onAdd: () => { },
+}
 
 export default memo(ArticleItem);

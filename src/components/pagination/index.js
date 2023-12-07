@@ -15,24 +15,22 @@ function Pagination() {
   }));
 
   const countPages = useMemo(() => Math.ceil(select.total / select.params.limit), [select.total]);
-  // const arrayPages = useMemo(() => [...Array(countPages).keys()].slice(1), [select.total]);
-  const arr = paginationRange(countPages, select.currentPage, 1);
+  const paginationList = useMemo(() => paginationRange(countPages, select.currentPage, 1), [select.total, select.currentPage]);
 
-  // ara(currentPage, countPages, arrayPages);
-  console.log(arr);
   return (
     <div className='Pagination'>
       {
-        arr.map((item, index) => {
+        paginationList.map((item, index) => {
           return Number.isInteger(item) ? <div
-            key={index}
+            key={item}
             className={'Pagination-item' + (select.currentPage === item ? ' Pagination-item-active' : '')}
             onClick={() => Number.isInteger(item) && store.actions.catalog.setCurrentPage(item)}>
             {item}
-          </div> : <div className={'Pagination-points'}>{item}</div>
+          </div> : <div key={item} className={'Pagination-points'}>{item}</div>
         }
         )}
     </div>
   )
-}
+};
+
 export default memo(Pagination);

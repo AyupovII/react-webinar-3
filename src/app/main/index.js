@@ -12,8 +12,6 @@ function Main() {
 
   const store = useStore();
 
-
-
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,

@@ -65,4 +65,24 @@ export function paginationRange(totalPage, page, siblings,) {
     let middleRange = myRange(leftSiblingsIndex, rightSiblingsIndex);
     return [1, "... ", ...middleRange, " ...", totalPage]
   }
+} 
+const obj={
+  shopTitle:{
+    ru: "Магазин",
+    eng: "Shop",
+    fr: "Жопе"
+  },
+  BasketTitle:{
+    ru: "Корзина",
+    eng: "Basket",
+  },
+}
+
+const ru={
+  shop: "Магазин",
+  basket: "Корзина"
+};
+const eng={
+  shop: "Shop",
+  basket: "Basket"
 }
