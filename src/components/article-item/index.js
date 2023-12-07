@@ -1,11 +1,8 @@
 import { memo, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from '@bem-react/classname';
-import { numberFormat } from "../../utils";
+import { getTranslate, numberFormat } from "../../utils";
 import './style.css';
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import useStore from "../../store/use-store";
-
 function ArticleItem({ id, data, onAdd }) {
   const cn = bem('ArticleItem');
 
@@ -15,18 +12,18 @@ function ArticleItem({ id, data, onAdd }) {
         {data?.description}
       </div>
       <div className={cn('madeIn')}>
-        Страна производитель: <strong>{`${data?.madeIn?.title} (${data?.madeIn?.code})`}</strong>
+        {getTranslate("madeIn")}: <strong>{`${data?.madeIn?.title} (${data?.madeIn?.code})`}</strong>
       </div>
       <div className={cn('category')}>
-        Категория: <strong>{data?.category?.title}</strong>
+        {getTranslate("category")}: <strong>{data?.category?.title}</strong>
       </div>
       <div className={cn('edition')}>
-        Год выпуска: <strong>{data.edition}</strong>
+        {getTranslate("edition")}: <strong>{data.edition}</strong>
       </div>
       <div className={cn('price')}>
-        Цена: {numberFormat(data?.price)} ₽
+        {getTranslate("price")}: {numberFormat(data?.price)} ₽
       </div>
-      <button onClick={onAdd} className={cn('button')}>Добавить</button>
+      <button onClick={onAdd} className={cn('button')}>{getTranslate("add")}</button>
     </div>
   );
 }

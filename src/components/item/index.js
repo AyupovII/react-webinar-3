@@ -1,9 +1,9 @@
-import {memo, useState} from "react";
+import { memo, useState } from "react";
 import PropTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname';
-import {numberFormat} from "../../utils";
+import { cn as bem } from '@bem-react/classname';
+import { getTranslate, numberFormat } from "../../utils";
 import './style.css';
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Item(props) {
   const router = useNavigate();
@@ -16,12 +16,12 @@ function Item(props) {
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')} onClick={()=>router(`/card/${props.item._id}`)}>
+      <div className={cn('title')} onClick={() => router(`/card/${props.item._id}`)}>
         {props.item.title}
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{getTranslate("add")}</button>
       </div>
     </div>
   );
@@ -37,7 +37,7 @@ Item.propTypes = {
 };
 
 Item.defaultProps = {
-  onAdd: () => {},
+  onAdd: () => { },
 }
 
 export default memo(Item);

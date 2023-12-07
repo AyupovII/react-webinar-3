@@ -1,3 +1,6 @@
+import wordbook from "./locales/index.json";
+import useSelector from "./store/use-selector";
+
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -65,24 +68,11 @@ export function paginationRange(totalPage, page, siblings,) {
     let middleRange = myRange(leftSiblingsIndex, rightSiblingsIndex);
     return [1, "... ", ...middleRange, " ...", totalPage]
   }
-} 
-const obj={
-  shopTitle:{
-    ru: "Магазин",
-    eng: "Shop",
-    fr: "Жопе"
-  },
-  BasketTitle:{
-    ru: "Корзина",
-    eng: "Basket",
-  },
 }
 
-const ru={
-  shop: "Магазин",
-  basket: "Корзина"
-};
-const eng={
-  shop: "Shop",
-  basket: "Basket"
+export function getTranslate(value) {
+  const select = useSelector(state => ({
+    lang: state.lang.lang,
+  }));
+  return wordbook[value][select.lang];
 }

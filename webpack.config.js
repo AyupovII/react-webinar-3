@@ -32,6 +32,7 @@ let config = {
           {loader: 'css-loader', options: {url: true, import: true}},
         ]
       },
+      
     ]
   },
   plugins: [
