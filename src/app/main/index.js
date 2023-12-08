@@ -18,11 +18,12 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     skip: state.catalog.params.skip,
+    currentPage: state.catalog.currentPage,
   }));
 
   useEffect(() => {
     store.actions.catalog.load();
-  }, [select.skip]);
+  }, [select.currentPage]);
 
   const callbacks = {
     // Добавление в корзину
