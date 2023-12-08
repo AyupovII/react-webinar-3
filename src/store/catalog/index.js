@@ -30,18 +30,19 @@ class Catalog extends StoreModule {
     }, 'Загружены товары из АПИ');
   }
 
-    /**
-   * Удаление товара из корзины??????????????????????????
-   * @param currentPage номер текущей страницы
-   */
-    setCurrentPage(currentPage) {
-      this.setState({
-        ...this.getState(),
-        params: {...this.getState().params, skip: (currentPage - 1)*this.getState().params.limit
-        },
-        currentPage,
-      }, 'Выбор текущей страницы');
-    }
+  /**
+ * Уствновка текущей страницы
+ * @param currentPage номер текущей страницы
+ */
+  setCurrentPage(currentPage) {
+    this.setState({
+      ...this.getState(),
+      params: {
+        ...this.getState().params, skip: (currentPage - 1) * this.getState().params.limit
+      },
+      currentPage,
+    }, 'Выбор текущей страницы');
+  }
 }
 
 export default Catalog;

@@ -27,7 +27,6 @@ function Article() {
   }
 
   useLayoutEffect(() => {
-    callbacks.closeModal();
     store.actions.article.loadArticle(id);
     return () => {
       store.actions.article.clearState();
