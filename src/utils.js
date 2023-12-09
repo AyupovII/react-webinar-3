@@ -45,7 +45,7 @@ export function myRange(start, size, step = 1) {
   return range;
 };
 
-export function paginationRange(totalPage, page, siblings,) {
+export function paginationRange(totalPage, page, siblings=1,) {
   let totalPageNoInArray = 7 + siblings;
   if (totalPageNoInArray >= totalPage) {
     return myRange(1, totalPage + 1);
@@ -53,16 +53,15 @@ export function paginationRange(totalPage, page, siblings,) {
   let leftSiblingsIndex = Math.max(page - siblings, 1);
   let rightSiblingsIndex = Math.min(page + siblings, totalPage);
   let showLeftDots = leftSiblingsIndex > 2;
-  let showRightDots = rightSiblingsIndex < totalPage - 2;
-
+  let showRightDots = rightSiblingsIndex < totalPage - 1;
   if (!showLeftDots && showRightDots) {
-    let leftItemsCount = 3 + 2 * siblings;
-    let leftRange = myRange(1, leftItemsCount + 1);
+    let leftItemsCount = 1 + 2 * siblings;
+    let leftRange = (leftSiblingsIndex == 1 && leftSiblingsIndex <= rightSiblingsIndex - 1) ? myRange(1, leftItemsCount) : myRange(1, leftItemsCount + 1);
     return [...leftRange, " ...", totalPage]
   }
   else if (showLeftDots && !showRightDots) {
-    let rightItemsCount = 3 + 2 * siblings;
-    let rightRange = myRange(totalPage - rightItemsCount + 1, totalPage);
+    let rightItemsCount = 1 + 2 * siblings;
+    let rightRange = (rightSiblingsIndex == totalPage && rightSiblingsIndex + 1 >= totalPage) ? myRange(totalPage - rightItemsCount + 1, totalPage) : myRange(totalPage - rightItemsCount, totalPage);
     return [1, "... ", ...rightRange];
   } else {
     let middleRange = myRange(leftSiblingsIndex, rightSiblingsIndex);

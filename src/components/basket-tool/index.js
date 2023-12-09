@@ -16,6 +16,7 @@ function BasketTool({ sum, amount, onOpen }) {
   };
   const navigate = useNavigate();
   const cn = bem('BasketTool');
+  
   return (
     <div className={cn()}>
       <div className={cn('link')} onClick={() => navigate("/card")}>{getTranslate("main")}</div>

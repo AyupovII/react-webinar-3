@@ -31,7 +31,7 @@ class Catalog extends StoreModule {
   }
 
   /**
- * Уствновка текущей страницы
+ * Установка текущей страницы
  * @param currentPage номер текущей страницы
  */
   setCurrentPage(currentPage) {
@@ -41,7 +41,7 @@ class Catalog extends StoreModule {
         ...this.getState().params, skip: (currentPage - 1) * this.getState().params.limit
       },
       currentPage,
-    }, 'Выбор текущей страницы');
+    }, 'Изменение страницы навигации');
   }
 }
 

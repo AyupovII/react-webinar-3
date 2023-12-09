@@ -1,28 +1,17 @@
-import { memo, useCallback } from "react";
+import { memo } from "react";
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
+import PropTypes from "prop-types";
 
 
-function Lang() {
-
-  const store = useStore();
-  const select = useSelector(state => ({
-    lang: state.lang.lang,
-  }));
-
-  const callbacks = {
-    // Изменение языка
-    selectLang: useCallback(code => store.actions.lang.selectLang(code), [store]),
-  }
+function Lang({ lang, selectLang }) {
 
   const cn = bem('Lang');
   const langList = ["ru", "eng"];
   return (
     <div className={cn('')}>
       <div className={cn('current')}>
-        {select.lang}
+        {lang}
       </div>
       <div className={cn('list')}>
         {langList.map(langCode => {
@@ -30,7 +19,7 @@ function Lang() {
             <div
               key={langCode}
               className={cn('item')}
-              onClick={() => callbacks.selectLang(langCode)}
+              onClick={() => selectLang(langCode)}
             >
               {langCode}
             </div>)
@@ -39,6 +28,15 @@ function Lang() {
 
     </div>
   );
+};
+
+Lang.propTypes = {
+  lang: PropTypes.string,
+  selectLang: PropTypes.func,
+};
+
+Lang.defaultProps = {
+  selectLang: () => { },
 }
 
 export default memo(Lang);

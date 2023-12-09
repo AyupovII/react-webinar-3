@@ -29,6 +29,7 @@ class Article extends StoreModule {
       data: json.result,
       loading: false,
     }, 'Загружен товар из АПИ');
+    return json.result;
   };
 
   clearState(){
