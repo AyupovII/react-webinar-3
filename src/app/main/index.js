@@ -8,11 +8,14 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
 import { getTranslate } from '../../utils';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Loader from '../../components/loader';
 
 function Main() {
-
+  const navigate = useNavigate();
+  const useQuery = () => new URLSearchParams(useLocation().search);
+  const query = useQuery();
+  const page = query.get('page');
   const store = useStore();
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -21,13 +24,13 @@ function Main() {
     skip: state.catalog.params.skip,
     params: state.catalog.params,
     total: state.catalog.total,
-    currentPage: state.catalog.currentPage,
+    currentPage: Boolean(page) ? Number(page) : state.catalog.currentPage,
     lang: state.lang.lang,
     loading: state.catalog.loading,
   }));
-
   useEffect(() => {
-    store.actions.catalog.load();
+    navigate(`/card?page=${select.currentPage}`);
+    store.actions.catalog.load(select.currentPage);
   }, [select.currentPage]);
 
   const callbacks = {
@@ -36,7 +39,9 @@ function Main() {
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     // Клик по пагинации на номер страницы
-    setCurrentPage: useCallback((page) => store.actions.catalog.setCurrentPage(page), [store]),
+    setCurrentPage: useCallback((page) => {
+      store.actions.catalog.setCurrentPage(page);
+    }, [store]),
     selectLang: useCallback(code => store.actions.lang.selectLang(code), [store]),
   }
 
@@ -54,7 +59,7 @@ function Main() {
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum} />
-      {select.loading ? <Loader/> : <List list={select.list} renderItem={renders.item} />}
+      {select.loading ? <Loader /> : <List list={select.list} renderItem={renders.item} />}
       <Pagination
         setCurrentPage={callbacks.setCurrentPage}
         params={select.params}

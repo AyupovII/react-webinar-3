@@ -21,12 +21,13 @@ class Catalog extends StoreModule {
     }
   }
 
-  async load() {
+  async load( currentPage=1 ) {
     this.setState({
       ...this.store.getState().catalog,
       loading: true,
     }, 'Идет загрузка');
-    const response = await fetch('/api/v1/articles?fields=items(_id, title, price),count&' + new URLSearchParams(this.getState().params));
+    const response = await fetch('/api/v1/articles?fields=items(_id, title, price),count&'
+      + new URLSearchParams({ ...this.getState().params, skip: (currentPage - 1) * this.getState().params.limit }));
     const json = await response.json();
     this.setState({
       ...this.getState(),

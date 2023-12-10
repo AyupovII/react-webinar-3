@@ -19,10 +19,10 @@ function App() {
       <Routes>
         <Route path='/card' element={<Main />} />
         <Route path='/card/:id' element={<Article />} />
-        <Route
+        {/* <Route
           path="*"
           element={<Navigate to="/card" replace />}
-        />
+        /> */}
       </Routes>
       {activeModal === 'basket' && <Basket />}
     </>
