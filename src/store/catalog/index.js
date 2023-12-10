@@ -17,16 +17,22 @@ class Catalog extends StoreModule {
       },
       total: 0,
       currentPage: 1,
+      loading: false,
     }
   }
 
   async load() {
+    this.setState({
+      ...this.store.getState().catalog,
+      loading: true,
+    }, 'Идет загрузка');
     const response = await fetch('/api/v1/articles?fields=items(_id, title, price),count&' + new URLSearchParams(this.getState().params));
     const json = await response.json();
     this.setState({
       ...this.getState(),
       list: json.result.items,
       total: json.result.count,
+      loading: false,
     }, 'Загружены товары из АПИ');
   }
 

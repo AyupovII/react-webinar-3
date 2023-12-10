@@ -5,14 +5,16 @@ import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
 import ArticleItem from '../../components/article-item';
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Loader from '../../components/loader';
+import { getTranslate } from '../../utils';
 
 function Article() {
 
   const store = useStore();
   const { id } = useParams();
-
+  const navigate = useNavigate();
+  const mainText = getTranslate("main");
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
@@ -42,6 +44,7 @@ function Article() {
         <>
           <Head title={select.data.title} lang={select.lang} selectLang={callbacks.selectLang} />
           <BasketTool
+            renderLeftSide={<Link style={{ color: "#0087E9" }} to="/card">{mainText}</Link>}
             onOpen={callbacks.openModalBasket}
             amount={select.amount}
             sum={select.sum}

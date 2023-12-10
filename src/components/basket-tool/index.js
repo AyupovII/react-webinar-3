@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { getTranslate, numberFormat, plural } from "../../utils";
 import './style.css';
-import { useNavigate } from "react-router-dom";
 
-function BasketTool({ sum, amount, onOpen }) {
+function BasketTool({ sum, amount, onOpen, renderLeftSide }) {
   //были проблемы с рендером, поэтому логику перевода поднял выше
   //Rendered fewer hooks than expected. This may be caused by an accidental early return statement
   const translateText = {
@@ -14,12 +13,13 @@ function BasketTool({ sum, amount, onOpen }) {
     theProduct: getTranslate("theProduct"),
     products: getTranslate("products"),
   };
-  const navigate = useNavigate();
   const cn = bem('BasketTool');
-  
+
   return (
     <div className={cn()}>
-      <div className={cn('link')} onClick={() => navigate("/card")}>{getTranslate("main")}</div>
+      <div className={cn("left")}>
+        {renderLeftSide}
+      </div>
       <div>
         <span className={cn('label')}>{getTranslate("inBasket")}:</span>
         <span className={cn('total')}>
@@ -41,7 +41,8 @@ function BasketTool({ sum, amount, onOpen }) {
 BasketTool.propTypes = {
   onOpen: PropTypes.func.isRequired,
   sum: PropTypes.number,
-  amount: PropTypes.number
+  amount: PropTypes.number,
+  renderLeftSide: PropTypes.node,
 };
 
 BasketTool.defaultProps = {
