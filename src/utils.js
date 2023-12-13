@@ -33,3 +33,23 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Структурирование списка categories
+ * @param categories {Array}
+ * @param parentId {String | Null}
+ * @param level {Number}
+ * @returns {Array}
+ */
+export function getStructuredList(categories, parentId = null, level = 0) {
+  let result = [];
+  categories.forEach(item => {
+    const itemParent = item.parent?._id || null;
+    if (itemParent === parentId) {
+      item.title = '- '.repeat(level) + item.title;
+      result.push({ value: item._id, title: item.title });
+      result = [...result, ... getStructuredList(categories, item._id, level + 1)];
+    }
+  });
+  return result
+};
