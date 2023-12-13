@@ -1,0 +1,9 @@
+.InputField {
+  font-size: 16px;
+  padding: 2px;
+  display: flex;
+}
+
+.Input_theme_big {
+  width: 300px;
+}
