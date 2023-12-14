@@ -42,7 +42,6 @@ function CatalogFilter() {
   };
 
   const { t } = useTranslate();
-  console.log(options);
   return (
     <SideLayout padding='medium'>
       <Select options={options.categories} value={select.category} onChange={callbacks.onSelectCategory} />

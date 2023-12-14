@@ -1,5 +1,4 @@
-import {memo, useCallback, useMemo} from 'react';
-import {useParams} from "react-router-dom";
+import { memo, useCallback } from 'react';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
@@ -8,43 +7,54 @@ import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
-import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
 import LoginPage from '../../components/login-page';
+import HeadProfileBlock from '../../containers/head-profile-block';
 
 /**
- * Страница товара с первичной загрузкой товара по id из url адреса
+ * Страница пользователя
  */
 function Login() {
   const store = useStore();
 
-  // Параметры из пути /articles/:id
-  const params = useParams();
-
-  useInit(() => {
-    store.actions.article.load(params.id);
-  }, [params.id]);
-
   const select = useSelector(state => ({
-    article: state.article.data,
-    waiting: state.article.waiting,
+    waiting: state.profile.waiting,
+    error: state.profile.error,
+    token: state.profile.token,
+    isAuthorized: state.profile.isAuthorized,
+    data: state.profile?.profile,
   }));
-
-  const {t} = useTranslate();
+  const { t } = useTranslate();
 
   const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    handleLogin: useCallback((e) => {
+      e.preventDefault();
+      const form = new FormData(e.target);
+      const { login, password } = Object.fromEntries(form);
+      store.actions.profile.fetchLogin({ login, password });
+    }, [store]),
+    checkLogin: useCallback(() => store.actions.profile.checkLogin(), [store])
   }
+
+  useInit(() => {
+    callbacks.checkLogin();
+  }, []);
 
   return (
     <PageLayout>
+      <HeadProfileBlock />
       <Head title={"Магазин"}>
-        <LocaleSelect/>
+        <LocaleSelect />
       </Head>
-      <Navigation/>
+      <Navigation />
       <Spinner active={select.waiting}>
-        <LoginPage t={t}/>
+        <LoginPage 
+        title={select.isAuthorized ? t("profile.entry") : t("profile.profile")} 
+        data ={select.data} 
+        isAuthorized = {select.isAuthorized} 
+        onLogin={callbacks.handleLogin} 
+        error={select.error} 
+        t={t} />
       </Spinner>
     </PageLayout>
   );

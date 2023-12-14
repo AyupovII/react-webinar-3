@@ -25,7 +25,7 @@ class CategoryState extends StoreModule {
     this.setState({
       ...this.getState(),
       list: [{ title: "Все", value: ""}, ...getStructuredList(json.result.items)]
-    }, 'Загружен сприсок категорий для фильтрации');
+    }, 'Загружен список категорий для фильтрации');
   }
 
 }

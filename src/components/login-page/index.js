@@ -1,22 +1,37 @@
 import { memo } from "react";
-import PropTypes from 'prop-types';
 import './style.css';
-import Input from "../input";
 import { cn as bem } from '@bem-react/classname';
-import InputField from "../input-field";
-import Head from "../head";
+import LoginForm from "../login-form";
+import PropTypes from 'prop-types';
+import ProfilePage from "../profile-page";
 
 
-function LoginPage() {
+function LoginPage({ title, data, onLogin, error, isAuthorized, t }) {
   const cn = bem('LoginPage');
   return (
     <div className={cn()}>
-      <div className={cn("Head")}>Вход</div>
-      <InputField label={"Логин"} type={"text"} />
-      <InputField label={"Пароль"} type={"password"} />
-      <button className={cn("Button")}>Войти</button>
+      <div className={cn("head")}>{title}</div>
+      {isAuthorized ? <ProfilePage data={data} t={t} /> : <LoginForm onLogin={onLogin} error={error} t={t} />}
     </div>
   )
-}
+};
+
+LoginPage.propTypes = {
+  title: PropTypes.string,
+  data: PropTypes.object,
+  onLogin: PropTypes.func,
+  isAuthorized: PropTypes.bool,
+  error: PropTypes.shape({
+    message: PropTypes.string,
+  }),
+  t: PropTypes.func
+};
+
+LoginPage.defaultProps = {
+  t: (text) => text,
+  error: {
+    message: ""
+  }
+};
 
 export default memo(LoginPage);

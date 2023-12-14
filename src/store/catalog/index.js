@@ -17,7 +17,6 @@ class CatalogState extends StoreModule {
         limit: 10,
         sort: 'order',
         query: '',
-        category: ''
       },
       count: 0,
       waiting: false
@@ -38,7 +37,7 @@ class CatalogState extends StoreModule {
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
     if (urlParams.has('category')) validParams.category = urlParams.get('category');
-    await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
+    await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
   /**
@@ -48,7 +47,7 @@ class CatalogState extends StoreModule {
    */
   async resetParams(newParams = {}) {
     // Итоговые параметры из начальных, из URL и из переданных явно
-    const params = {...this.initState().params, ...newParams};
+    const params = { ...this.initState().params, ...newParams };
     // Установка параметров и загрузка данных
     await this.setParams(params);
   }
@@ -60,7 +59,7 @@ class CatalogState extends StoreModule {
    * @returns {Promise<void>}
    */
   async setParams(newParams = {}, replaceHistory = false) {
-    const params = {...this.getState().params, ...newParams};
+    const params = { ...this.getState().params, ...newParams };
 
     // Установка новых параметров и признака загрузки
     this.setState({
@@ -84,10 +83,9 @@ class CatalogState extends StoreModule {
       fields: 'items(*),count',
       sort: params.sort,
       'search[query]': params.query,
-      'search[category]': params.category,
     };
-
-    const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
+    const apiParamsModified = !!params.category ? { ...apiParams, 'search[category]': params.category, } : apiParams;
+    const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParamsModified)}`);
     const json = await response.json();
     this.setState({
       ...this.getState(),
