@@ -17,6 +17,7 @@ class CatalogState extends StoreModule {
         limit: 10,
         sort: 'order',
         query: '',
+        category: ''
       },
       count: 0,
       waiting: false
@@ -48,6 +49,7 @@ class CatalogState extends StoreModule {
   async resetParams(newParams = {}) {
     // Итоговые параметры из начальных, из URL и из переданных явно
     const params = { ...this.initState().params, ...newParams };
+    console.log(params);
     // Установка параметров и загрузка данных
     await this.setParams(params);
   }
@@ -83,8 +85,10 @@ class CatalogState extends StoreModule {
       fields: 'items(*),count',
       sort: params.sort,
       'search[query]': params.query,
+      'search[category]': params.category
     };
-    const apiParamsModified = !!params.category ? { ...apiParams, 'search[category]': params.category, } : apiParams;
+    const {'search[category]' : category, ...rest } = apiParams;
+    const apiParamsModified = !!params.category ?apiParams : rest  ;
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParamsModified)}`);
     const json = await response.json();
     this.setState({
