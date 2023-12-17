@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback } from 'react';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
@@ -16,9 +16,11 @@ import { useNavigate } from 'react-router-dom';
 /**
  * Страница пользователя
  */
-function Login() {
+function Profile() {
   const store = useStore();
   const navigate = useNavigate();
+
+
   const select = useSelector(state => ({
     waiting: state.profile.waiting,
     error: state.profile.error,
@@ -29,19 +31,12 @@ function Login() {
   const { t } = useTranslate();
 
   const callbacks = {
-    handleLogin: useCallback((e) => {
-      e.preventDefault();
-      const form = new FormData(e.target);
-      const { login, password } = Object.fromEntries(form);
-      store.actions.profile.fetchLogin({ login, password });
-      navigate(-1);
-    }, [store]),
     checkLogin: useCallback(() => store.actions.profile.checkLogin(), [store])
   }
 
   useInit(() => {
     callbacks.checkLogin();
-    if (select.isAuthorized) navigate(-1)
+    if (!select.isAuthorized) navigate("/login")
   }, [select.isAuthorized]);
 
   return (
@@ -52,16 +47,10 @@ function Login() {
       </Head>
       <Navigation />
       <Spinner active={select.waiting}>
-        <LoginPage
-          title={t("profile.entry")}
-          data={select.data}
-          isAuthorized={select.isAuthorized}
-          onLogin={callbacks.handleLogin}
-          error={select.error}
-          t={t} />
+          <ProfilePage data={select.data} title={t("profile.profile")} t={t} />
       </Spinner>
     </PageLayout>
   );
 }
 
-export default memo(Login);
+export default memo(Profile);

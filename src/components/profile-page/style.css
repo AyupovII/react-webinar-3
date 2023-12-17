@@ -1,6 +1,16 @@
+.ProfilePage {
+  display: flex;
+  row-gap: 20px;
+  flex-direction: column;
+  padding: 30px 20px 20px 20px;
+}
+.ProfilePage-content {
+  display: flex;
+  flex-direction: column;
+}
 
 .ProfilePage-prop {
-  margin: 20px 0;
+  margin: 15px 0;
   display: flex;
   justify-content: flex-start;
   font-size: 18px

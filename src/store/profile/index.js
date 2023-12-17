@@ -54,7 +54,7 @@ class ProfileState extends StoreModule {
       this.setState({
         ...this.getState(),
         error: {
-          message: json.error.message,
+          message: json.error.data.issues[0].message,
           code: json.error.code,
         },
         waiting: false,
