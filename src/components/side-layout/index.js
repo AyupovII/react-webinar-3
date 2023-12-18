@@ -5,7 +5,6 @@ import './style.css';
 
 function SideLayout({children, side, padding, style}) {
   const cn = bem('SideLayout');
-  console.log(style);
   return (
     <div className={cn({side, padding})} style={style}>
       {React.Children.map(children, (child) => (
@@ -19,7 +18,7 @@ SideLayout.propTypes = {
   children: PropTypes.node,
   side: PropTypes.oneOf(['start', 'end', 'between']),
   padding: PropTypes.oneOf(['small', 'medium']),
-  style: PropTypes.string
+  style: PropTypes.object
 }
 
 SideLayout.defaultProps = {};

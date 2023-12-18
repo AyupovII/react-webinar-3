@@ -9,7 +9,7 @@ function HeadProfile({ isAuthorized, onLogout, onNavigate, profileName }) {
   return (
     <div className='HeadProfile'>
       {isAuthorized ?
-        <SideLayout side={"end"} style={{height: `41px`, ["border-bottom"]: `1px solid #DCDCDC`}}>
+        <SideLayout side={"end"} style={{height: `41px`, borderBottom: `1px solid #DCDCDC`}}>
           <Link to={"/profile"}>{profileName}</Link>
           <Controls title={"Выход"} onHandler={onLogout} />
         </SideLayout>
