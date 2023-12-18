@@ -8,7 +8,6 @@ import Head from "../../components/head";
 import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import LocaleSelect from "../../containers/locale-select";
-import LoginPage from '../../components/login-page';
 import HeadProfileBlock from '../../containers/head-profile-block';
 import ProfilePage from '../../components/profile-page';
 import { useNavigate } from 'react-router-dom';
@@ -23,21 +22,19 @@ function Profile() {
 
   const select = useSelector(state => ({
     waiting: state.profile.waiting,
-    error: state.profile.error,
-    token: state.profile.token,
-    isAuthorized: state.profile.isAuthorized,
+    token: state.user.token,
+    isAuthorized: state.user.isAuthorized,
     data: state.profile?.profile,
   }));
   const { t } = useTranslate();
-
   const callbacks = {
-    checkLogin: useCallback(() => store.actions.profile.checkLogin(), [store])
+    loadProfile: useCallback((token) => store.actions.profile.loadProfile(token), [store])
   }
 
   useInit(() => {
-    callbacks.checkLogin();
+    callbacks.loadProfile(select.token);
     if (!select.isAuthorized) navigate("/login")
-  }, [select.isAuthorized]);
+  }, [select.isAuthorized], true);
 
   return (
     <PageLayout>

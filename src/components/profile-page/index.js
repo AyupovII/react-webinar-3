@@ -24,7 +24,6 @@ function ProfilePage({ t, data, title }) {
           <div className={cn('value')}>{data?.email}</div>
         </div>
       </div>
-
     </div>
   )
 };
@@ -36,7 +35,7 @@ ProfilePage.propTypes = {
       name: PropTypes.string,
       phone: PropTypes.string,
     }).isRequired,
-  }).isRequired,
+  }),
   t: PropTypes.func,
   title: PropTypes.string,
 };

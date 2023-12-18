@@ -5,6 +5,7 @@ import useTranslate from "../../hooks/use-translate";
 import { Link, useNavigate } from "react-router-dom";
 import Controls from "../../components/controls";
 import SideLayout from "../../components/side-layout";
+import HeadProfile from "../../components/head-profile";
 
 /**
  * Контейнер для перехода/выхода в/из личный кабинет
@@ -15,25 +16,23 @@ function HeadProfileBlock() {
   const navigate = useNavigate();
 
   const select = useSelector(state => ({
-    isAuthorized: state.profile.isAuthorized,
-    profileName: state.profile.username,
+    isAuthorized: state.user.isAuthorized,
+    profileName: state.user.username,
   }))
 
   const callbacks = {
-    onLogout: useCallback(() => store.actions.profile.logout(), [store]),
+    onLogout: useCallback(() => store.actions.user.logout(), [store]),
     onNavigate: useCallback(() => navigate("/login"), [store])
   }
   return (
-    <div className='HeadProfile'>
-      {select.isAuthorized ?
-        <SideLayout padding='small' side={"end"}>
-          <Link to={"/profile"}>{select.profileName}</Link>
-          <Controls title={"Выход"} onHandler={callbacks.onLogout} />
-        </SideLayout>
-        :
-        <Controls title={"Вход"} onHandler={callbacks.onNavigate} />
-      }
-    </div>
+    <HeadProfile
+      isAuthorized={select.isAuthorized}
+      onLogout={callbacks.onLogout}
+      onNavigate={callbacks.onNavigate}
+      profileName={select.profileName}
+      t={t}
+    />
+
   );
 }
 

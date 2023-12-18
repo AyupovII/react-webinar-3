@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback } from 'react';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
@@ -10,21 +10,19 @@ import Spinner from "../../components/spinner";
 import LocaleSelect from "../../containers/locale-select";
 import LoginPage from '../../components/login-page';
 import HeadProfileBlock from '../../containers/head-profile-block';
-import ProfilePage from '../../components/profile-page';
 import { useNavigate } from 'react-router-dom';
 
 /**
- * Страница пользователя
+ * Страница авторизации
  */
 function Login() {
   const store = useStore();
   const navigate = useNavigate();
   const select = useSelector(state => ({
-    waiting: state.profile.waiting,
-    error: state.profile.error,
-    token: state.profile.token,
-    isAuthorized: state.profile.isAuthorized,
-    data: state.profile?.profile,
+    waiting: state.user.waiting,
+    error: state.user.error,
+    token: state.user.token,
+    isAuthorized: state.user.isAuthorized,
   }));
   const { t } = useTranslate();
 
@@ -33,16 +31,13 @@ function Login() {
       e.preventDefault();
       const form = new FormData(e.target);
       const { login, password } = Object.fromEntries(form);
-      store.actions.profile.fetchLogin({ login, password });
-      navigate(-1);
+      store.actions.user.fetchLogin({ login, password });
     }, [store]),
-    checkLogin: useCallback(() => store.actions.profile.checkLogin(), [store])
+    checkToken: useCallback(() => store.actions.user.checkToken(), [store])
   }
-
   useInit(() => {
-    callbacks.checkLogin();
     if (select.isAuthorized) navigate(-1)
-  }, [select.isAuthorized]);
+  }, [select.isAuthorized], true);
 
   return (
     <PageLayout>
@@ -54,7 +49,6 @@ function Login() {
       <Spinner active={select.waiting}>
         <LoginPage
           title={t("profile.entry")}
-          data={select.data}
           isAuthorized={select.isAuthorized}
           onLogin={callbacks.handleLogin}
           error={select.error}
