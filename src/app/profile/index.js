@@ -28,11 +28,11 @@ function Profile() {
   }));
   const { t } = useTranslate();
   const callbacks = {
-    loadProfile: useCallback((token) => store.actions.profile.loadProfile(token), [store])
+    loadProfile: useCallback(() => store.actions.profile.loadProfile(), [store])
   }
 
   useInit(() => {
-    callbacks.loadProfile(select.token);
+    callbacks.loadProfile();
     if (!select.isAuthorized) navigate("/login")
   }, [select.isAuthorized], true);
 

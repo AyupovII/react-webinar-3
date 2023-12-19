@@ -12,9 +12,9 @@ function LoginPage({ title, onLogin, error, t }) {
       <form className={cn("form")} onSubmit={onLogin}>
         <InputField label={t("profile.login")} type={"text"} name="login" defaultValue={"test_1"} />
         <InputField label={t("profile.password")} type={"password"} name="password" />
+        {error?.message && <div className={cn("error")}>{error?.message}</div>}
         <button className={cn("button")} type="submit">{t("profile.enter")}</button>
       </form>
-      {error?.message && <div className={cn("error")}>{error?.message}</div>}
     </div>
   )
 };

@@ -19,7 +19,8 @@ class ProfileState extends StoreModule {
     }
   }
 
-  async loadProfile(token) {
+  async loadProfile() {
+    const token = localStorage.getItem('token')
     if (!token) return
     const profile = await fetch("/api/v1/users/self?fields=*", {
       method: "get",

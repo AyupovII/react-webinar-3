@@ -2,9 +2,9 @@ import {memo} from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Controls({onHandler , title}) {
+function Controls({onHandler , title, style}) {
   return (
-    <div className='Controls'>
+    <div className='Controls' style={style}>
       <button onClick={() => onHandler ()}>{title}</button>
     </div>
   )

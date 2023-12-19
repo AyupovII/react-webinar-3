@@ -9,12 +9,14 @@ function HeadProfile({ isAuthorized, onLogout, onNavigate, profileName }) {
   return (
     <div className='HeadProfile'>
       {isAuthorized ?
-        <SideLayout side={"end"} style={{height: `41px`, borderBottom: `1px solid #DCDCDC`}}>
+        <SideLayout side={"end"} style={{ height: `41px`, borderBottom: `1px solid #DCDCDC`, margin: "0" }}>
           <Link to={"/profile"}>{profileName}</Link>
           <Controls title={"Выход"} onHandler={onLogout} />
         </SideLayout>
         :
-        <Controls title={"Вход"} onHandler={onNavigate} />
+        <SideLayout side={"end"} style={{ height: `41px`, borderBottom: `1px solid #DCDCDC`, margin: "0" }}>
+          <Controls title={"Вход"} onHandler={onNavigate} />
+        </SideLayout>
       }
     </div>
   )
@@ -25,7 +27,8 @@ HeadProfile.propTypes = {
   onNavigate: PropTypes.func,
   isAuthorized: PropTypes.bool,
   profileName: PropTypes.string,
-  t: PropTypes.func
+  t: PropTypes.func,
+  style: PropTypes.object
 };
 
 HeadProfile.defaultProps = {
@@ -33,7 +36,7 @@ HeadProfile.defaultProps = {
   },
   onNavigate: () => {
   },
-  t: (text) => text
+  t: (text) => text,
 }
 
 export default memo(HeadProfile);
