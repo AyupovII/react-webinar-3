@@ -1,0 +1,21 @@
+.FieldComment {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.FieldComment-header {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.FieldComment-textarea {
+  min-height: 80px;
+  font-size: 14px;
+}
+
+.FieldComment-control {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}

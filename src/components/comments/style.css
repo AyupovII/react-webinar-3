@@ -1,0 +1,16 @@
+
+.Comments{
+  padding: 20px 40px
+}
+
+.Comments-list{
+  display: flex;
+  flex-direction: column;
+  gap: 30px
+}
+
+.Comments-header{
+  font-size: 34px;
+  margin-bottom: 25px;
+  font-weight: 400
+}

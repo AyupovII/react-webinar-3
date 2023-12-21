@@ -1,0 +1,10 @@
+.WarningBlock {
+  fonst-size: 14px;
+  display: flex;
+}
+
+.WarningBlock-cancel {
+  color: #666666;
+  text-decoration: underline;
+  cursor: pointer;
+}
