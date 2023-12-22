@@ -18,7 +18,11 @@ function CommentsContainer() {
   const dispatch = useDispatch();
   const { id: articleId } = useParams();
   const select = useSelectorRedux(state => ({
-    comments: state.comments.data,
+    comments: [
+      ...treeToList(listToTree(state.comments.data.length ? state.comments.data : []), (item, level) => (
+        { ...item, level }
+      ))
+    ].slice(1),
     waitingComments: state.comments.waiting,
     count: state.comments.count,
 
@@ -29,9 +33,6 @@ function CommentsContainer() {
 
   // Функция для локализации текстов
   const { t } = useTranslate();
-  const tree = listToTree(select.comments.length ? select.comments:[], "_id");
-  const newComments = treeToList(tree, (item, level) => ({ ...item, level }));
-  newComments.shift();
 
   const sendComment = (commentData) => {
     dispatch(commmentsActions.sendComment(commentData));
@@ -44,21 +45,21 @@ function CommentsContainer() {
         selectComment={selectComment}
         setSelectComment={setSelectComment}
         count={select.count}
-        data={newComments}
+        data={select.comments}
         exists={exists}
         currentUser={currentUser}
         sendComment={sendComment}
         t={t}
       />
-      {!selectComment && (exists ? <FieldComment
-        articleId={articleId}
-        sendComment={sendComment}
-        level={1}
-        exists={exists}
-        isNewComment
-        style={{ padding: "10px 40px" }}
-        t={t}
-      /> : <WarningBlock isNewComment style={{ padding: "20px 40px" }} t={t}/>)}
+      <div style={{ padding: "0px 0px 30px 30px" }}>
+        {!selectComment && (exists ? <FieldComment
+          articleId={articleId}
+          sendComment={sendComment}
+          exists={exists}
+          isNewComment
+          t={t}
+        /> : <WarningBlock isNewComment t={t} />)}
+      </div>
     </Spinner>
   );
 }

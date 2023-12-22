@@ -1,5 +1,6 @@
 .WarningBlock {
-  fonst-size: 14px;
+  padding-top: 30px;
+  font-size: 16px;
   display: flex;
 }
 

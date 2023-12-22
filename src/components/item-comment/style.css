@@ -3,7 +3,6 @@
   flex-direction: column;
   gap: 10px;
   font-size: 12px;
-
 }
 
 .ItemComment-header {
@@ -18,19 +17,17 @@
 .ItemComment-active_user {
   font-weight: 700;
   color: #666666;
-
 }
 .ItemComment-date {
   color: #666666;
-
 }
 .ItemComment-text {
   font-size: 14px;
-
+  word-wrap: break-word;
+  text-align: justify;
 }
 
 .ItemComment-btn {
   color: #0087e9;
   cursor: pointer;
-
 }

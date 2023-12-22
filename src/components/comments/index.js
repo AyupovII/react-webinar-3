@@ -16,11 +16,10 @@ function Comments({ data, count, selectComment, setSelectComment, exists, curren
         {
           data.map((comment) => {
             return (
-              <div key={comment.dateCreate}>
+              <div className={cn("content")} key={comment.dateCreate} style={{ marginLeft: `${(comment.level - 1) * 30}px` }} >
                 <ItemComment
                   id={comment._id}
                   setSelectComment={setSelectComment}
-                  level={comment.level}
                   date={comment.dateCreate}
                   text={comment.text}
                   user={comment.author.profile.name}
@@ -31,9 +30,10 @@ function Comments({ data, count, selectComment, setSelectComment, exists, curren
                   ?
                   !exists
                     ?
-                    <WarningBlock level={comment.level} setSelectComment={setSelectComment}  t={t}/>
+                    <WarningBlock setSelectComment={setSelectComment} t={t} />
                     :
-                    <FieldComment level={comment.level} setSelectComment={setSelectComment} selectComment={selectComment} sendComment={sendComment}  t={t} />
+                    <FieldComment
+                      setSelectComment={setSelectComment} selectComment={selectComment} sendComment={sendComment} t={t} />
                   :
                   null}
               </div>)

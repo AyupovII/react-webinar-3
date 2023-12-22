@@ -3,6 +3,12 @@
   padding: 20px 40px
 }
 
+.Comments-content{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
 .Comments-list{
   display: flex;
   flex-direction: column;

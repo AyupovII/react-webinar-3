@@ -4,10 +4,10 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import getFormatDate from '../../utils/formate-date';
 
-function ItemComment({ user, date, text, level, setSelectComment, currentUser, id, t }) {
+function ItemComment({ user, date, text, setSelectComment, currentUser, id, t }) {
   const cn = bem('ItemComment');
   return (
-    <div className={cn()} style={{ marginLeft: `${(level - 1) * 30}px` }}>
+    <div className={cn()}>
       <div className={cn('header')}>
         <div className={cn(`${(currentUser===user)? "active_user": "user"}`)}>{user}</div>
         <div className={cn("date")}>{getFormatDate(date)}</div>
@@ -21,11 +21,9 @@ function ItemComment({ user, date, text, level, setSelectComment, currentUser, i
 }
 
 ItemComment.propTypes = {
-
   user: PropTypes.string,
   date: PropTypes.string,
   text: PropTypes.string,
-  level: PropTypes.number,
   setSelectComment: PropTypes.func,
   setSelectComment: PropTypes.func,
   currentUser: PropTypes.string,

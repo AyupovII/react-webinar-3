@@ -3,16 +3,15 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function FieldComment({ sendComment, level, setSelectComment, isNewComment, selectComment, articleId, style, t }) {
+function FieldComment({ sendComment, setSelectComment, isNewComment, selectComment, articleId, t }) {
   const [value, setValue] = useState("");
-  console.log(value);
   const cn = bem('FieldComment');
   return (
-    <div className={cn()} style={{ ...style, marginLeft: `${(level - 1) * 30}px` }}>
+    <div className={cn()} >
       <div className={cn('header')}>
-        Новый комментарий
+      {isNewComment ? "Новый комментарий" : "Новый ответ"}
       </div>
-      <textarea className={cn('textarea')} placeholder='Текст' defaultValue={value} onChange={(e) => setValue(e.target.value)} />
+      <textarea className={cn('textarea')} placeholder='Текст' defaultValue={value} onChange={(e) => setValue(e.target.value.trim())} />
       <div className={cn('control')}>
         <button onClick={() => sendComment({ text: value, parent: { _id: isNewComment ? articleId : selectComment, _type: isNewComment ? "article" : "comment" } })}>Отправить</button>
         {!isNewComment && <button onClick={() => setSelectComment(null)}>Отмена</button>}
@@ -22,7 +21,6 @@ function FieldComment({ sendComment, level, setSelectComment, isNewComment, sele
 }
 
 FieldComment.propTypes = {
-  level: PropTypes.number,
   isNewComment: PropTypes.bool,
   selectComment: PropTypes.string,
   articleId: PropTypes.string,

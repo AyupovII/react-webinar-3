@@ -4,10 +4,10 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import { Link } from 'react-router-dom';
 
-function WarningBlock({ level, setSelectComment, isNewComment, style, t }) {
+function WarningBlock({ setSelectComment, isNewComment, t }) {
   const cn = bem('WarningBlock');
   return (
-    <div className={cn()} style={{ ...style, marginLeft: `${(level - 1) * 30}px` }}>
+    <div className={cn()}>
       <Link to='/login'>Войдите</Link>, чтобы иметь возможность ответить. {
         !isNewComment &&
         <div
