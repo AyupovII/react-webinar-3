@@ -11,12 +11,12 @@ function Comments({ data, count, selectComment, setSelectComment, exists, curren
 
   return (
     <div className={cn()}>
-      <div className={cn('header')}>{`Комментарии (${count})`}</div>
+      <div className={cn('header')}>{`${t("comments.comments")} (${count})`}</div>
       <div className={cn('list')}>
         {
           data.map((comment) => {
             return (
-              <div className={cn("content")} key={comment.dateCreate} style={{ marginLeft: `${(comment.level - 1) * 30}px` }} >
+              <div className={cn("content")} key={comment._id} style={{ marginLeft: `${(comment.level - 1) * 30}px` }} >
                 <ItemComment
                   id={comment._id}
                   setSelectComment={setSelectComment}

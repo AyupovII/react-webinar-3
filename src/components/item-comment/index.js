@@ -15,7 +15,7 @@ function ItemComment({ user, date, text, setSelectComment, currentUser, id, t })
       <div className={cn('text')}>
         {text}
       </div>
-      <div className={cn('btn')} onClick={() => setSelectComment(id)}>Ответить</div>
+      <div className={cn('btn')} onClick={() => setSelectComment(id)}>{t("comments.toAnswer")}</div>
     </div>
   );
 }

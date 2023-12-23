@@ -9,12 +9,12 @@ function FieldComment({ sendComment, setSelectComment, isNewComment, selectComme
   return (
     <div className={cn()} >
       <div className={cn('header')}>
-      {isNewComment ? "Новый комментарий" : "Новый ответ"}
+      {isNewComment ? t("comments.newComment") : t("comments.newAnswer")}
       </div>
       <textarea className={cn('textarea')} placeholder='Текст' defaultValue={value} onChange={(e) => setValue(e.target.value.trim())} />
       <div className={cn('control')}>
-        <button onClick={() => sendComment({ text: value, parent: { _id: isNewComment ? articleId : selectComment, _type: isNewComment ? "article" : "comment" } })}>Отправить</button>
-        {!isNewComment && <button onClick={() => setSelectComment(null)}>Отмена</button>}
+        <button onClick={() => sendComment({ text: value, parent: { _id: isNewComment ? articleId : selectComment, _type: isNewComment ? "article" : "comment" } })}>{t("comments.send")}</button>
+        {!isNewComment && <button onClick={() => setSelectComment(null)}>{t("comments.cancel")}</button>}
       </div>
     </div>
   );

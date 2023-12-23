@@ -6,14 +6,14 @@ export default {
    */
   load: (id) => {
     return async (dispatch, getState, services) => {
-      // Сброс текущего товара и установка признака ожидания загрузки
+      // Сброс текущего списка комментарий и установка признака ожидания загрузки
       dispatch({ type: 'comments/load-start' });
 
       try {
         const res = await services.api.request({
           url: `/api/v1/comments?fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted),count&limit=*&search[parent]=${id}`
         });
-        // Товар загружен успешно
+        // комментарий загружен успешно
         dispatch({ type: 'comments/load-success', payload: { data: res.data.result.items, count: res.data.result.count } });
       } catch (e) {
         //Ошибка загрузки
@@ -23,9 +23,8 @@ export default {
   },
   sendComment: (data) => {
     return async (dispatch, getState, services) => {
-      // Сброс текущего товара и установка признака ожидания загрузки
+      // Отправка комментарии и установка признака ожидания загрузки
       dispatch({ type: 'sendComment/load-start' });
-
       try {
         const res = await services.api.request({
           url: `/api/v1/comments`,

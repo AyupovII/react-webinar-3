@@ -8,13 +8,13 @@ function WarningBlock({ setSelectComment, isNewComment, t }) {
   const cn = bem('WarningBlock');
   return (
     <div className={cn()}>
-      <Link to='/login'>Войдите</Link>, чтобы иметь возможность ответить. {
+      <Link to='/login'>{t("comments.logIn")}</Link>{t("comments.respond")} {
         !isNewComment &&
         <div
           className={cn("cancel")}
           onClick={() => setSelectComment(null)}
         >
-          Отмена
+          {t("comments.cancel")}
         </div>}
     </div>
   );
