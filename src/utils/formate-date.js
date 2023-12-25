@@ -15,5 +15,5 @@ export  default function getFormatDate(date) {
     month: "long",
     day: "numeric"
   };
-  return formattedDate.toLocaleString("ru", formatterDate).slice(0, -3) + " " + formattedDate.toLocaleString("ru", formatterTime)
+  return formattedDate.toLocaleString("ru", formatterDate).slice(0, -3) + " в " + formattedDate.toLocaleString("ru", formatterTime)
 }

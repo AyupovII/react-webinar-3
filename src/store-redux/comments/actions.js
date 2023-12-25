@@ -21,7 +21,7 @@ export default {
       }
     }
   },
-  sendComment: (data) => {
+  sendComment: (data, name) => {
     return async (dispatch, getState, services) => {
       // Отправка комментарии и установка признака ожидания загрузки
       dispatch({ type: 'sendComment/load-start' });

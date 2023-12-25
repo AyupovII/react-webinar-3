@@ -1,11 +1,8 @@
-import { memo, useCallback, useMemo, useState } from 'react';
-import useStore from '../../hooks/use-store';
+import { memo, useMemo, useState } from 'react';
 import { useDispatch, useSelector as useSelectorRedux } from 'react-redux';
 import useTranslate from '../../hooks/use-translate';
 import shallowequal from 'shallowequal';
-import modalsActions from '../../store-redux/modals/actions';
 import listToTree from '../../utils/list-to-tree';
-import treeToList from '../../utils/tree-to-list';
 import Spinner from '../../components/spinner';
 import Comments from '../../components/comments';
 import FieldComment from '../../components/field-comment';
@@ -18,15 +15,18 @@ function CommentsContainer() {
   const dispatch = useDispatch();
   const { id: articleId } = useParams();
   const select = useSelectorRedux(state => ({
-    comments: [
-      ...treeToList(listToTree(state.comments.data.length ? state.comments.data : []), (item, level) => (
-        { ...item, level }
-      ))
-    ].slice(1),
+    comments: state.comments.data.length ? state.comments.data : [],
     waitingComments: state.comments.waiting,
     count: state.comments.count,
 
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
+
+  const comments = useMemo(() => {
+    if (select.comments?.length) {
+      return listToTree(select.comments)[0].children
+    }
+    return []
+  }, [select.comments]);
   const exists = useSelector(state => state.session.exists);
   const currentUser = useSelector(state => state.session.user.profile?.name);
   const [selectComment, setSelectComment] = useState(null);
@@ -35,9 +35,11 @@ function CommentsContainer() {
   const { t } = useTranslate();
 
   const sendComment = (commentData) => {
-    dispatch(commmentsActions.sendComment(commentData));
+    dispatch(commmentsActions.sendComment(commentData, currentUser));
     setSelectComment(null);
   }
+
+
 
   return (
     <Spinner active={select.waitingComments}>
@@ -45,20 +47,27 @@ function CommentsContainer() {
         selectComment={selectComment}
         setSelectComment={setSelectComment}
         count={select.count}
-        data={select.comments}
+        data={comments}
         exists={exists}
         currentUser={currentUser}
         sendComment={sendComment}
         t={t}
       />
-      <div style={{ padding: "0px 0px 30px 30px" }}>
+      <div style={{ padding: "0px 40px 30px 40px" }}>
         {!selectComment && (exists ? <FieldComment
           articleId={articleId}
           sendComment={sendComment}
           exists={exists}
           isNewComment
           t={t}
-        /> : <WarningBlock isNewComment t={t} />)}
+        /> : <WarningBlock
+          isNewComment
+          exists={exists}
+        selectComment={selectComment}
+
+          t={t}
+        />
+        )}
       </div>
     </Spinner>
   );
